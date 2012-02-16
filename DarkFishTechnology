@@ -111,14 +111,14 @@ DarkFishTechnology_computeQualityControls(){
 	
 		command=" ( zcat SamAlignments/$samFile | samstat -f sam -n QualityControls/$samFile) ; (mv QualityControls/$samFile.html $randomFile ) ; ( DarkFishTechnology_linkCacheEntry $randomFile QualityControls $samFile.html ) ; "
 		
-		processorVariable=processor$processorNumber"QualityControls"
-		oldValue=$(eval echo \$$processorVariable)
-	
+#		processorVariable=processor$processorNumber"QualityControls"
+		oldValue=$(eval echo QualityControls[$processorNumber])
 		newValue=$oldValue$command
+		QualityControls[$processorNumber]=$newValue
 	
-		toEval="$processorVariable=\"$newValue\""
+		#toEval="$processorVariable=\"$newValue\""
 
-		eval $toEval
+		#eval $toEval
 	
 		fileNumber=$(($fileNumber+1))
 	done
@@ -145,14 +145,14 @@ DarkFishTechnology_convertSamToBam(){
 	
 		command=" ( samtools view -bS SamAlignments/$samFile > $randomFile ) ; ( DarkFishTechnology_linkCacheEntry $randomFile BamAlignments $samFile.bam ) ; "
 	
-		processorVariable=processor$processorNumber"BamAlignments"
-		oldValue=$(eval echo \$$processorVariable)
-	
+		#processorVariable=processor$processorNumber"BamAlignments"
+		oldValue=$(eval echo BamAlignments[$processorNumber])
 		newValue=$oldValue$command
+		BamAlignments[$processorNumber]=$newValue
 
-		toEval="$processorVariable=\"$newValue\""
+#		toEval="$processorVariable=\"$newValue\""
 	
-		eval $toEval
+#		eval $toEval
 	
 		fileNumber=$(($fileNumber+1))
 	done
@@ -179,13 +179,12 @@ DarkFishTechnology_sortAlignments(){
 		command="( samtools sort BamAlignments/$samFile.bam $randomFile ) ; ( mv $randomFile.bam $randomFile) ; (DarkFishTechnology_linkCacheEntry $randomFile SortedBamAlignments $samFile.sorted.bam ) ; "
 	
 		processorVariable=processor$processorNumber"SortedBamAlignments"
-		oldValue=$(eval echo \$$processorVariable)
-	
+		oldValue=$(eval echo SortedBamAlignments[$processorNumber])
 		newValue=$oldValue$command
+		SortedBamAlignments[$processorNumber]=$newValue
+#		toEval="$processorVariable=\"$newValue\""
 	
-		toEval="$processorVariable=\"$newValue\""
-	
-		eval $toEval
+#		eval $toEval
 	
 		fileNumber=$(($fileNumber+1))
 	done
