@@ -57,14 +57,14 @@ do
 	randomFile=$(DarkFishTechnology_generateCacheEntry)
 	command="( bwa bwasw Reference/Reference.fasta Sample/$file | gzip > $randomFile ) ; ( DarkFishTechnology_linkCacheEntry $randomFile SamAlignments $file.sam.gz ) ; "
 
-	processorVariable=processor$processorNumber"SamAlignments"
-	oldValue=$(eval echo \$$processorVariable)
-
+	#processorVariable=processor$processorNumber"SamAlignments"
+	oldValue=$(eval echo SamAlignments[$processorNumber])
 	newValue=$oldValue$command
+	SamAlignments[$processorNumber]=$newValue
 
-	toEval="$processorVariable=\"$newValue\""
+	#toEval="$processorVariable=\"$newValue\""
 
-	eval $toEval
+	#eval $toEval
 
 	fileNumber=$(($fileNumber+1))
 done

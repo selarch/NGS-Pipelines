@@ -66,14 +66,15 @@ do
 	command=$command" ( bowtie2-align -x Reference/Reference.fasta -1 SamAlignments/$fileR1.fastq -2 SamAlignments/$fileR2.fastq | gzip > $randomFile ) ; "
 	command=$command"  DarkFishTechnology_linkCacheEntry $randomFile SamAlignments $fileRX.sam.gz ; "
 
-	processorVariable=processor$processorNumber"SamAlignments"
-	oldValue=$(eval echo \$$processorVariable)
-
+#	processorVariable=processor$processorNumber"SamAlignments"
+#	oldValue=$(eval echo \$$processorVariable)
+	oldValue=$(eval echo SamAlignments[$processorNumber])
 	newValue=$oldValue$command
+	SamAlignments[$processorNumber]=$newValue
 
-	toEval="$processorVariable=\"$newValue\""
+#	toEval="$processorVariable=\"$newValue\""
 
-	eval $toEval
+#	eval $toEval
 
 	fileNumber=$(($fileNumber+1))
 done

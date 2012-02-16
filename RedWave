@@ -52,14 +52,14 @@ do
 	command="( bwa aln Reference/Reference.fasta Sample/$file > $randomFile ) ; "
 	command=$command" ( DarkFishTechnology_linkCacheEntry $randomFile BinaryAlignments $file.sai ) ; "
 
-	processorVariable=processor$processorNumber"BinaryAlignments"
-	oldValue=$(eval echo \$$processorVariable)
-
+#	processorVariable=processor$processorNumber"BinaryAlignments"
+#	oldValue=$(eval echo \$$processorVariable)
+	oldValue=$(eval echo BinaryAlignments[$processorNumber])
 	newValue=$oldValue$command
+	BinaryAlignments[$processorNumber]=$newValue
+#	toEval="$processorVariable=\"$newValue\""
 
-	toEval="$processorVariable=\"$newValue\""
-
-	eval $toEval
+#	eval $toEval
 
 	fileNumber=$(($fileNumber+1))
 done
@@ -81,13 +81,15 @@ do
 	command=" ( bwa sampe Reference/Reference.fasta BinaryAlignments/$fileR1.sai BinaryAlignments/$fileR2.sai Sample/$fileR1 Sample/$fileR2 |gzip > $randomFile ) ; ( DarkFishTechnology_linkCacheEntry $randomFile SamAlignments $fileRX.sam.gz ) ; "
 	
 
-	processorVariable=processor$processorNumber"SamAlignments"
-	oldValue=$(eval echo \$$processorVariable)
-
+#	processorVariable=processor$processorNumber"SamAlignments"
+#	oldValue=$(eval echo \$$processorVariable)
+	oldValue=$(eval echo SamAlignments[$processorNumber])
 	newValue=$oldValue$command
-	toEval="$processorVariable=\"$newValue\""
+	SamAlignments[$processorNumber]=newValue
 
-	eval $toEval
+#	toEval="$processorVariable=\"$newValue\""
+
+#	eval $toEval
 
 	fileNumber=$(($fileNumber+1))
 done
