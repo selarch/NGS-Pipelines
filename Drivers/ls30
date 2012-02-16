@@ -1,0 +1,3 @@
+hostname=eval $(hostname)
+
+if [ $hostname = "ls30.genome.ulaval.ca" 
