@@ -55,7 +55,10 @@ DarkFishTechnology_runGroupCommands(){
 		#processorVariable=processor$processorNumber$commandGroup
 		#echo "processorVariable= $processorVariable"
 		#command=$(eval echo \$$processorVariable)
-		command=$commandGroup[$processorNumber]
+		toEval='echo ${'$commandGroup'['$processorNumber']}'
+		#echo "toEval = $toEval"
+		command=$(eval $toEval)
+		#echo "command = $command"
 		#command=DEBUG$commandGroup$processorNumber
 		DarkFishTechnology_runCommand $processorNumber "$command"
 		) &
